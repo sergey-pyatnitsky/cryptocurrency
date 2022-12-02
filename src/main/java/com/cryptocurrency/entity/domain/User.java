@@ -31,7 +31,7 @@ public class User implements UserDetails {
     @Column(name = "enabled", columnDefinition = "boolean default false")
     private boolean isActive;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "user_authorities",
             joinColumns = @JoinColumn(name = "user_username"),
             inverseJoinColumns = @JoinColumn(name = "authority_id"))

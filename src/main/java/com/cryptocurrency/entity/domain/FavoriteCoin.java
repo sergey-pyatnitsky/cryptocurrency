@@ -25,12 +25,12 @@ public class FavoriteCoin {
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
             name = "favorite_coin_list",
-            joinColumns = { @JoinColumn(name = "favorite_id") },
-            inverseJoinColumns = { @JoinColumn(name = "coin_id") }
+            joinColumns = { @JoinColumn(name = "coin_id") },
+            inverseJoinColumns = { @JoinColumn(name = "favorite_id") }
     )
     private List<Coin> coinList;
 
-    @OneToOne
-    @JoinColumn(name = "username", referencedColumnName = "username")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user", referencedColumnName = "username")
     private User user;
 }

@@ -7,7 +7,6 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Getter
 @Setter
@@ -16,16 +15,16 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table
-public class Portfolio {
+public class CurrencyValue {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "designation_name")
+    private Designation designation;
 
-    @OneToMany(mappedBy = "coin")
-    private List<PortfolioCoin> portfolioCoins;
-
+    @Column(nullable = false)
+    private Long value;
 }

@@ -21,20 +21,15 @@ public class PortfolioCoin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "designation_name", nullable = false)
-    private Designation designation;
-
-    @ManyToOne
-    @JoinColumn(name = "portfolio_id", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "portfolio", referencedColumnName = "id")
     private Portfolio portfolio;
 
     @ManyToOne
     @JoinColumn(name = "coin_id", nullable = false)
     private Coin coin;
 
-    @Column(name = "buy_price")
-    private double buyPrice;
-
-    private double quantity;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "buyPrice", referencedColumnName = "id")
+    private CurrencyValue buyPrice;
 }

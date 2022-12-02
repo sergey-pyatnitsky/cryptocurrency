@@ -1,14 +1,15 @@
 package com.cryptocurrency.entity.domain;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Builder
 @Getter
 @Setter
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -23,14 +24,14 @@ public class Coin {
     private String symbol;
     private String image;
 
-//    @Lob
+    @Lob
     @Column(name = "ru_description")
     private String ruDescription;
 
-//    @Lob
+    @Lob
     @Column(name="en_description")
     private String enDescription;
 
     @OneToMany(mappedBy = "coin")
-    private List<CoinMarket> coinMarketList = new ArrayList<>();
+    private List<CoinMarket> coinMarketList;
 }
