@@ -1,9 +1,9 @@
 package com.cryptocurrency.repository;
 
-import com.cryptocurrency.entity.domain.FavoriteCoin;
+import com.cryptocurrency.entity.domain.CurrencyValue;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface FavoriteCoinRepository extends JpaRepository<FavoriteCoin, Long> {
+public interface CurrencyValueRepository extends JpaRepository<CurrencyValue, Long> {
 }
