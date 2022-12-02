@@ -1,0 +1,20 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="Pyatnitsky" id="create_portfolio_table">
+        <createTable tableName="portfolio">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="username" type="varchar(50)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="FK_PORTFOLIO_ON_USERNAME"
+                foreignKeyName="username" references="&quot;user&quot;(username)"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

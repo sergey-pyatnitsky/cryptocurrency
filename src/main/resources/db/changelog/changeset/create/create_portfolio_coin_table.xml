@@ -1,0 +1,27 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="Pyatnitsky" id="create_portfolio_coin_table">
+        <createTable tableName="portfolio_coin">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="designation_name" type="VARCHAR(10) ">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="FK_PORTFOLIOCOIN_ON_DESIGNATION_NAME"
+                             foreignKeyName="designation_name" references="designation(name)"/>
+            </column>
+            <column name="portfolio_id" type="BIGINT">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="FK_PORTFOLIOCOIN_ON_PORTFOLIO"
+                             foreignKeyName="portfolio_id" references="portfolio(id)"/>
+            </column>
+            <column name="coin_id" type="VARCHAR(255)" >
+                <constraints primaryKey="true" nullable="false" primaryKeyName="FK_PORTFOLIOCOIN_ON_COIN"
+                             foreignKeyName="coin_id" references="coin(id)"/>
+            </column>
+            <column name="buy_price" type="DOUBLE PRECISION"/>
+            <column name="quantity" type="DOUBLE PRECISION"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

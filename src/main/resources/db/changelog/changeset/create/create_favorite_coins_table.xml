@@ -1,0 +1,28 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="Pyatnitsky" id="create_favorites_coins_table">
+        <createTable tableName="favorite_coin">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="username" type="varchar(50)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="FK_FAVORITECOIN_ON_USERNAME"
+                             foreignKeyName="username" references="&quot;user&quot;(username)"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="favorite_coin_list">
+            <column name="favorite_id" type="BIGINT">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="fk_favcoilis_on_favorite_coin"
+                             foreignKeyName="favorite_id" references="favorite_coin(id)"/>
+            </column>
+            <column name="coin_id" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="fk_favcoilis_on_coin"
+                             foreignKeyName="coin_id" references="coin(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,16 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="insert-profile-table" author="Pyatnitsky">
+        <insert tableName="profile">
+            <column name="username"  value="user"/>
+            <column name="name"  value="Иванов Иван Иванович"/>
+            <column name="email"  value="qwerty@mail.ru"/>
+            <column name="phone"  value="+375(29)789-12-12"/>
+            <column name="country"  value="Беларусь"/>
+            <column name="address"  value="пр-т. Независимости д.43"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

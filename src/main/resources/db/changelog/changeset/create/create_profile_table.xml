@@ -1,0 +1,23 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="Pyatnitsky" id="create_profile_table">
+        <createTable tableName="profile">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="username" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="username_pkey"
+                             foreignKeyName="username" references="user(username)"/>
+            </column>
+            <column name="name" type="varchar(100)"/>
+            <column name="email" type="varchar(50)"/>
+            <column name="phone" type="varchar(60)"/>
+            <column name="country" type="varchar(60)"/>
+            <column name="address" type="varchar(100)"/>
+            <column name="image_id" type="varchar(100)" defaultValue="1w-cdfICir8vpLXyRY4hW041f2JEG4z_5"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

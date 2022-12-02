@@ -1,0 +1,23 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <include relativeToChangelogFile="true" file="./changeset/create/create_authority_table.xml"/>
+    <include relativeToChangelogFile="true" file="./changeset/create/create_user_table.xml"/>
+    <include relativeToChangelogFile="true" file="./changeset/create/create_user_authorities_table.xml"/>
+    <include relativeToChangelogFile="true" file="./changeset/create/create_profile_table.xml"/>
+    <include relativeToChangelogFile="true" file="./changeset/create/create_coin_table.xml"/>
+    <include relativeToChangelogFile="true" file="./changeset/create/create_designation_table.xml"/>
+    <include relativeToChangelogFile="true" file="./changeset/create/create_coin_market_table.xml"/>
+    <include relativeToChangelogFile="true" file="./changeset/create/create_favorite_coins_table.xml"/>
+    <include relativeToChangelogFile="true" file="./changeset/create/create_portfolio_table.xml"/>
+    <include relativeToChangelogFile="true" file="./changeset/create/create_portfolio_coin_table.xml"/>
+
+    <include relativeToChangelogFile="true" file="./changeset/insert/insert_roles_into_authority_table.xml"/>
+    <include relativeToChangelogFile="true" file="./changeset/insert/insert_users_table.xml"/>
+    <include relativeToChangelogFile="true" file="./changeset/insert/insert_relation_into_user_authorities_table.xml"/>
+    <include relativeToChangelogFile="true" file="./changeset/insert/insert_coins_table.xml"/>
+    <include relativeToChangelogFile="true" file="./changeset/insert/insert_designation_table.xml"/>
+    <include relativeToChangelogFile="true" file="./changeset/insert/insert_profile_table.xml"/>
+</databaseChangeLog>

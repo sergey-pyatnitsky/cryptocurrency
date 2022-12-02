@@ -1,0 +1,24 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet  author="Pyatnitsky"  id="create_coin_table">
+        <createTable tableName="coin">
+            <column name="id" type="varchar(50)" autoIncrement="false">
+                <constraints primaryKey="true" nullable="false" unique="true" primaryKeyName="pk_coin"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="symbol" type="varchar(10)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="image" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ru_description" type="text" />
+            <column name="en_description" type="text" />
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

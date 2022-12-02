@@ -1,0 +1,29 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet  author="Pyatnitsky"  id="create_coin_market_table">
+        <createTable tableName="coin_market">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" unique="true" primaryKeyName="pk_coinmarket"/>
+            </column>
+            <column name="coin_id" type="varchar(255)">
+                <constraints nullable="false" foreignKeyName="FK_COINMARKET_ON_COIN"/>
+            </column>
+            <column name="designation" type="varchar(10)">
+                <constraints nullable="false" foreignKeyName="FK_COINMARKET_ON_DESIGNATION"/>
+            </column>
+            <column name="current_price" type="DOUBLE PRECISION" />
+            <column name="market_cap" type="DOUBLE PRECISION" />
+            <column name="fully_diluted_valuation" type="DOUBLE PRECISION" />
+            <column name="high_24h" type="DOUBLE PRECISION" />
+            <column name="low_24h" type="DOUBLE PRECISION" />
+            <column name="price_change_percentage_24h" type="DOUBLE PRECISION" />
+            <column name="market_cap_change_percentage_24h" type="DOUBLE PRECISION" />
+            <column name="circulating_supply" type="DOUBLE PRECISION" />
+            <column name="total_supply" type="DOUBLE PRECISION" />
+            <column name="last_updated" type="varchar(255)" />
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

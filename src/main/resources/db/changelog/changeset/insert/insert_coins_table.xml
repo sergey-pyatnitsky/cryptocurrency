@@ -1,0 +1,112 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="insert-system-admin-into-user-table" author="Pyatnitsky">
+        <insert tableName="coin">
+            <column  name="id"  value="bitcoin"/>
+            <column  name="name"  value="Bitcoin"/>
+            <column  name="symbol"  value="btc"/>
+            <column  name="image"  value="https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579"/>
+            <column  name="ru_description"  value="Биткойн - это первые успешные интернет-деньги, основанные на технологии peer-to-peer, при которой ни один центральный банк или орган власти не участвует в транзакции и производстве биткойн-валюты."/>
+            <column  name="en_description"  value="Bitcoin is the first successful internet money based on peer-to-peer technology; whereby no central bank or authority is involved in the transaction and production of the Bitcoin currency."/>
+        </insert>
+        <insert tableName="coin">
+            <column  name="id"  value="ethereum"/>
+            <column  name="name"  value="Ethereum"/>
+            <column  name="symbol"  value="eth"/>
+            <column  name="image"  value="https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880"/>
+            <column  name="ru_description"  value="Ethereum - это глобальная платформа с открытым исходным кодом для децентрализованных приложений."/>
+            <column  name="en_description"  value="Ethereum is a global, open-source platform for decentralized applications."/>
+        </insert>
+        <insert tableName="coin">
+            <column  name="id"  value="tether"/>
+            <column  name="symbol"  value="usdt"/>
+            <column  name="name"  value="Tether"/>
+            <column  name="image"  value="https://assets.coingecko.com/coins/images/325/large/Tether.png?1668148663"/>
+            <column  name="ru_description"  value="Tether (USDT) - это криптовалюта, стоимость которой должна отражать стоимость доллара США."/>
+            <column  name="en_description"  value="Tether (USDT) is a cryptocurrency with a value meant to mirror the value of the U.S."/>
+        </insert>
+        <insert tableName="coin">
+            <column  name="id"  value="binancecoin"/>
+            <column  name="symbol"  value="bnb"/>
+            <column  name="name"  value="BNB"/>
+            <column  name="image"  value="https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png?1644979850"/>
+            <column  name="ru_description"  value="Binance Coin - это криптовалюта платформы Binance."/>
+            <column  name="en_description"  value="Binance Coin is the cryptocurrency of the Binance platform."/>
+        </insert>
+        <insert tableName="coin">
+            <column  name="id"  value="ripple"/>
+            <column  name="symbol"  value="xrp"/>
+            <column  name="name"  value="XRP"/>
+            <column  name="image"  value="https://assets.coingecko.com/coins/images/44/large/xrp-symbol-white-128.png?1605778731"/>
+            <column  name="ru_description"  value="Ripple - это общее название криптовалютной платформы, транзакционным протоколом для которой на самом деле является XRP, точно так же, как Ethereum - это название платформы, которая облегчает торговлю эфиром."/>
+            <column  name="en_description"  value="Ripple is the catchall name for the cryptocurrency platform, the transactional protocol for which is actually XRP, in the same fashion as Ethereum is the name for the platform that facilitates trades in Ether."/>
+        </insert>
+        <insert tableName="coin">
+            <column  name="id"  value="dogecoin"/>
+            <column  name="symbol"  value="doge"/>
+            <column  name="name"  value="Dogecoin"/>
+            <column  name="image"  value="https://assets.coingecko.com/coins/images/5/large/dogecoin.png?1547792256"/>
+            <column  name="ru_description"  value="Dogecoin - это криптовалюта, основанная на популярном интернет-меме Дож, на логотипе которой изображен Шиба-Ину."/>
+            <column  name="en_description"  value="Dogecoin is a cryptocurrency based on the popular Doge Internet meme and features a Shiba Inu on its logo."/>
+        </insert>
+        <insert tableName="coin">
+            <column  name="id"  value="avalanche-2"/>
+            <column  name="symbol"  value="avax"/>
+            <column  name="name"  value="Avalanche"/>
+            <column  name="image"  value="https://assets.coingecko.com/coins/images/12559/large/coin-round-red.png?1604021818"/>
+            <column  name="ru_description"  value="Avalanche - это высокопроизводительная блокчейн-платформа смарт-контрактов."/>
+            <column  name="en_description"  value="Avalanche is a high throughput smart contract blockchain platform."/>
+        </insert>
+        <insert tableName="coin">
+            <column  name="id"  value="cardano"/>
+            <column  name="symbol"  value="ada"/>
+            <column  name="name"  value="Cardano"/>
+            <column  name="image"  value="https://assets.coingecko.com/coins/images/975/large/cardano.png?1547034860"/>
+            <column  name="ru_description"  value="Cardano - это децентрализованная платформа, которая позволит осуществлять сложные программируемые переводы ценностей безопасным и масштабируемым способом."/>
+            <column  name="en_description"  value="Cardano is a decentralised platform that will allow complex programmable transfers of value in a secure and scalable fashion."/>
+        </insert>
+        <insert tableName="coin">
+            <column  name="id"  value="litecoin"/>
+            <column  name="symbol"  value="ltc"/>
+            <column  name="name"  value="Litecoin"/>
+            <column  name="image"  value="https://assets.coingecko.com/coins/images/2/large/litecoin.png?1547033580"/>
+            <column  name="ru_description"  value="Litecoin - это одноранговая криптовалюта, созданная Чарли Ли."/>
+            <column  name="en_description"  value="Litecoin is a peer-to-peer cryptocurrency created by Charlie Lee."/>
+        </insert>
+        <insert tableName="coin">
+            <column  name="id"  value="tron"/>
+            <column  name="symbol"  value="trx"/>
+            <column  name="name"  value="TRON"/>
+            <column  name="image"  value="https://assets.coingecko.com/coins/images/1094/large/tron-logo.png?1547035066"/>
+            <column  name="ru_description"  value="Что не так? Миссия Tron заключается в создании по-настоящему децентрализованного Интернета и стремится стать крупнейшей операционной системой на основе блокчейна в мире, известной как протокол TRON."/>
+            <column  name="en_description"  value="What is Tron? Tron's mission is to build a truly decentralized internet and aims to be the largest blockchain-based operating system in the world, known as the TRON protocol."/>
+        </insert>
+        <insert tableName="coin">
+            <column  name="id"  value="solana"/>
+            <column  name="symbol"  value="sol"/>
+            <column  name="name"  value="Solana"/>
+            <column  name="image"  value="https://assets.coingecko.com/coins/images/4128/large/solana.png?1640133422"/>
+            <column  name="ru_description"  value="О Солане (SOL)? Solana (SOL) - это криптовалюта с высокой пропускной способностью, основанная на консенсусе Proof of History (PoH) и Proof of Stake (PoS)."/>
+            <column  name="en_description"  value="About Solana (SOL)? Solana (SOL) is a high throughput cryptocurrency based on the Proof of History (PoH) and Proof of Stake (PoS) consensus."/>
+        </insert>
+        <insert tableName="coin">
+            <column  name="id"  value="staked-ether"/>
+            <column  name="symbol"  value="steth"/>
+            <column  name="name"  value="Lido Staked Ether"/>
+            <column  name="image"  value="https://assets.coingecko.com/coins/images/13442/large/steth_logo.png?1608607546"/>
+            <column  name="ru_description"  value="Lido Staked Either (stETH) - это токен, представляющий ваш эфир в Lido, объединяющий стоимость первоначального депозита и вознаграждения за ставки."/>
+            <column  name="en_description"  value="Lido Staked Ether (stETH) is a token that represents your staked ether in Lido, combining the value of initial deposit and staking rewards."/>
+        </insert>
+        <insert tableName="coin">
+            <column  name="id"  value="matic-network"/>
+            <column  name="symbol"  value="matic"/>
+            <column  name="name"  value="Polygon"/>
+            <column  name="image"  value="https://assets.coingecko.com/coins/images/4713/large/matic-token-icon.png?1624446912"/>
+            <column  name="ru_description"  value="Polygon (ранее Matic Network) - это первая хорошо структурированная, простая в использовании платформа для масштабирования Ethereum и развития инфраструктуры."/>
+            <column  name="en_description"  value="Polygon (Previously Matic Network) is the first well-structured, easy-to-use platform for Ethereum scaling and infrastructure development."/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

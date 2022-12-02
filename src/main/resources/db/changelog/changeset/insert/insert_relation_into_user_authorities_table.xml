@@ -1,0 +1,13 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="insert_relation_into_user_authorities_table" author="Pyatnitsky">
+        <insert tableName="user_authorities">
+            <column  name="user_username"  value="user"/>
+            <column  name="authority_id"  value="2"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
+

@@ -1,0 +1,21 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="Pyatnitsky" id="create_user_authorities_table">
+        <createTable tableName="user_authorities">
+            <column name="user_username" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="user_authority_pkey"
+                             foreignKeyName="user_username" references="user(username)"/>
+            </column>
+            <column name="authority_id" type="bigint">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="authority_user_pkey"
+                             foreignKeyName="authority_id" references="authority(id)"/>
+            </column>
+            <column name="enabled" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
