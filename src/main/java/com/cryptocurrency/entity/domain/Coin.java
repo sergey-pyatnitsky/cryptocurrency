@@ -1,7 +1,6 @@
 package com.cryptocurrency.entity.domain;
 
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.util.List;
@@ -9,7 +8,6 @@ import java.util.List;
 @Builder
 @Getter
 @Setter
-@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
