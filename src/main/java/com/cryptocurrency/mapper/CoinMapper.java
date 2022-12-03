@@ -7,13 +7,13 @@ import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = CoinMarketMapper.class)
 public interface CoinMapper {
 
-    @Mapping(source = "coinMarketList", target = "coinMarket")
+    @Mapping(ignore = true, target = "coinMarket")
     CoinDto toDto(Coin coin);
 
-    @Mapping(source = "coinMarket", target = "coinMarketList")
+    @Mapping(ignore = true, target = "coinMarketList")
     Coin toModal(CoinDto coinDto);
 
     List<CoinDto> toDtoList(List<Coin> coinList);

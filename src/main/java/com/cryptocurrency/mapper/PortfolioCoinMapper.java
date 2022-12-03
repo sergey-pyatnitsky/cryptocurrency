@@ -7,7 +7,7 @@ import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {CoinMapper.class, DesignationMapper.class})
+@Mapper(componentModel = "spring", uses = {CoinMapper.class, CurrencyValueMapper.class})
 public interface PortfolioCoinMapper {
 
     PortfolioCoinDto toDto(PortfolioCoin portfolioCoin);
