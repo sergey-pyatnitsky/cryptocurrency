@@ -5,8 +5,8 @@ import lombok.Data;
 
 @Data
 @Builder
-public class PortfolioCoinDto {
+public class CurrencyValueDto {
     private final Long id;
-    private final CoinDto coin;
-    private final CurrencyValueDto buyPrice;
+    private final DesignationDto designation;
+    private final Long value;
 }
