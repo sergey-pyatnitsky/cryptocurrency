@@ -3,12 +3,10 @@ package com.cryptocurrency.service.user;
 import com.cryptocurrency.entity.domain.Authority;
 import com.cryptocurrency.entity.domain.Profile;
 import com.cryptocurrency.entity.domain.User;
-import com.cryptocurrency.entity.dto.ProfileDto;
 import com.cryptocurrency.entity.enums.Role;
 import com.cryptocurrency.repository.AuthorityRepository;
 import com.cryptocurrency.repository.ProfileRepository;
 import com.cryptocurrency.repository.UserRepository;
-import com.cryptocurrency.service.email.EmailService;
 import com.cryptocurrency.util.ValidationUtil;
 import com.cryptocurrency.validation.RegexpValidator;
 import com.cryptocurrency.validation.UserValidator;
@@ -43,9 +41,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RegexpValidator regexpValidator;
 
-    @Autowired
-    private EmailService emailService;
-
     @Override
     public Set<Authority> getAuthoritiesByUsername(String username) {
         User user = userRepository.findById(username).orElse(null);
@@ -59,12 +54,6 @@ public class UserServiceImpl implements UserService {
         user.setPassword(password);
         ValidationUtil.validate(user, userValidator);
         user.setPassword("{bcrypt}" + (new BCryptPasswordEncoder()).encode(password));
-        return userRepository.save(user);
-    }
-
-    @Override
-    public User changeUserRole(User user, Role role) {
-        user.setRoles(this.setAllRoles(role));
         return userRepository.save(user);
     }
 
@@ -130,34 +119,8 @@ public class UserServiceImpl implements UserService {
             user.setActive(true);
             Profile profile = Profile.builder().name(name).user(user).email(email).build();
             profileRepository.save(profile);
-            emailService.sendSimpleEmail(email,
-                    "Welcome to the personnel accounting system",
-                    "You have successfully registered in the cryptocurrency system.");
             return true;
         } else return false;
-    }
-
-    @Override
-    public Profile findProfileByUser(User user) {
-        return profileRepository.findProfileByUser(user);
-    }
-
-    @Override
-    public Profile editProfileData(User user, ProfileDto profileDto) {
-        Profile profile = profileRepository.findProfileByUser(user);
-        profile.setAddress(profileDto.getAddress());
-        profile.setName(profileDto.getName());
-        profile.setCountry(profileDto.getCountry());
-        profile.setEmail(profileDto.getEmail());
-        profile.setPhone(profileDto.getPhone());
-        return profileRepository.save(profile);
-    }
-
-    @Override
-    public String editProfileImage(String imageId, User user) {
-        Profile profile = profileRepository.findProfileByUser(user);
-        profile.setImageId(imageId);
-        return profileRepository.save(profile).getImageId();
     }
 
     @Override
@@ -166,17 +129,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Profile> findAllProfile() {
-        return profileRepository.findAll();
-    }
-
-    @Override
-    public List<Profile> findAllProfileByActiveStatus(boolean isActive) {
-        return profileRepository.findProfilesByUser_isActive(isActive);
-    }
-
-    @Override
-    public List<Profile> findByRole(Role role) {
+    public List<User> findByRole(Role role) {
         Authority authority = authorityRepository.findByName(role.name()).orElse(null);
         if (authority == null) return null;
 
@@ -189,15 +142,7 @@ public class UserServiceImpl implements UserService {
                     .filter(user -> !user.getRoles().contains(authorityRepository.findByName(roleLoop.name()).orElse(null)))
                     .collect(Collectors.toList());
         }
-
-        return users.stream().map(
-                user -> profileRepository.findProfileByUser(user)
-        ).collect(Collectors.toList());
-    }
-
-    @Override
-    public boolean changeActiveStatus(User user, boolean isActive) {
-        return userRepository.changeActiveStatus(user.getUsername(), isActive) == 1;
+        return users;
     }
 
     @Override
@@ -252,10 +197,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean remove(User user) {
-//        if (authorityRepository.removeByName(user.getUsername()) == 1) {
-        if(profileRepository.removeByUser(user) == 1)
-            return userRepository.removeByUsername(user.getUsername()) == 1;
-//        }
+        if (authorityRepository.removeByName(user.getUsername())) {
+            return userRepository.removeByUsername(user.getUsername());
+        }
         return false;
     }
 }
