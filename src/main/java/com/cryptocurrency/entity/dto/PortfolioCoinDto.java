@@ -8,5 +8,6 @@ import lombok.Data;
 public class PortfolioCoinDto {
     private final Long id;
     private final CoinDto coin;
-    private final CurrencyValueDto buyPrice;
+    private final DesignationDto designation;
+    private final Long buyPrice;
 }

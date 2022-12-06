@@ -25,41 +25,36 @@ public class CoinMarket {
     @JoinColumn(name = "coin_id", nullable = false)
     private Coin coin;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "currentPrice", referencedColumnName = "id")
-    private CurrencyValue currentPrice;
+    @OneToOne
+    @JoinColumn(name = "designation", referencedColumnName = "name")
+    private Designation designation;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "market_cap", referencedColumnName = "id")
-    private CurrencyValue marketCap;
+    @Column(name = "currentPrice")
+    private double currentPrice;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fully_diluted_valuation", referencedColumnName = "id")
-    private CurrencyValue fullyDilutedValuation;
+    @Column(name = "market_cap")
+    private double marketCap;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "high_24h", referencedColumnName = "id")
-    private CurrencyValue high24h;
+    @Column(name = "fully_diluted_valuation")
+    private double fullyDilutedValuation;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "low_24h", referencedColumnName = "id")
-    private CurrencyValue low24h;
+    @Column(name = "high_24h")
+    private double high24h;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "price_change_percentage_24h", referencedColumnName = "id")
-    private CurrencyValue priceChangePercentage24h;
+    @Column(name = "low_24h")
+    private double low24h;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "market_cap_change_percentage_24h", referencedColumnName = "id")
-    private CurrencyValue marketCapChangePercentage24h;
+    @Column(name = "price_change_percentage_24h")
+    private double priceChangePercentage24h;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "circulating_supply", referencedColumnName = "id")
-    private CurrencyValue circulatingSupply;
+    @Column(name = "market_cap_change_percentage_24h")
+    private double marketCapChangePercentage24h;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "total_supply", referencedColumnName = "id")
-    private CurrencyValue totalSupply;
+    @Column(name = "circulating_supply")
+    private double circulatingSupply;
+
+    @Column(name = "total_supply")
+    private double totalSupply;
 
     @Column(name = "last_updated")
     private String lastUpdated;

@@ -7,7 +7,7 @@ import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = CurrencyValueMapper.class)
+@Mapper(componentModel = "spring", uses = {DesignationMapper.class, CoinMapper.class})
 public interface CoinMarketMapper {
 
     CoinMarketDto toDto(CoinMarket coin);
