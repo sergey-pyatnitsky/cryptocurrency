@@ -6,4 +6,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CoinMarketRepository extends JpaRepository<CoinMarket, Long> {
+
+    boolean existsByCoinIdAndDesignation_Name(String id, String name);
+
+    CoinMarket findByCoinIdAndDesignation_Name(String id, String name);
 }

@@ -1,18 +1,16 @@
 package com.cryptocurrency.service.coin;
 
-import com.cryptocurrency.entity.domain.*;
+import com.cryptocurrency.entity.domain.CoinMarket;
 import com.cryptocurrency.entity.dto.gesko.GeskoCoinMarketDto;
-import com.cryptocurrency.exception.IncorrectDataException;
-import com.cryptocurrency.exception.NoSuchDataException;
 import com.cryptocurrency.mapper.CoinMarketMapper;
 import com.cryptocurrency.mapper.gesko.GeskoMapper;
-import com.cryptocurrency.repository.*;
+import com.cryptocurrency.repository.CoinMarketRepository;
+import com.cryptocurrency.repository.CoinRepository;
+import com.cryptocurrency.repository.DesignationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,17 +22,10 @@ public class CoinServiceImpl implements CoinService {
     private CoinRepository coinRepository;
 
     @Autowired
-    private FavoriteCoinRepository favoriteCoinRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private CoinMarketRepository coinMarketRepository;
 
     @Autowired
     private DesignationRepository designationRepository;
-
 
     @Autowired
     private GeskoMapper geskoMapper;
@@ -48,42 +39,7 @@ public class CoinServiceImpl implements CoinService {
     }
 
     @Override
-    public List<String> findCoinsIdBySearch(String search) {
-        return coinRepository.findCoinsIdBySearch(search);
-    }
-
-    @Override
-    public FavoriteCoin addFavoriteCoin(String coinId, String username) {
-        User user = userRepository.findById(username)
-                .orElseThrow(() -> new IncorrectDataException("User not found"));
-
-        Coin coin = coinRepository.findById(coinId)
-                .orElseThrow(() -> new IncorrectDataException("Coin not found"));
-
-        FavoriteCoin favoriteCoin = favoriteCoinRepository.findByUser(user)
-                .orElse(FavoriteCoin.builder().user(user).coinList(Collections.singletonList(coin)).build());
-        if(!favoriteCoin.getCoinList().contains(coin))
-            favoriteCoin.getCoinList().add(coin);
-
-        return favoriteCoinRepository.save(favoriteCoin);
-    }
-
-    @Override
-    public List<Coin> getFavoriteCoinsList(String username, String currency) {
-        User user = userRepository.findById(username)
-                .orElseThrow(() -> new IncorrectDataException("User not found"));
-
-        FavoriteCoin favoriteCoin = favoriteCoinRepository.findByUser(user)
-                .orElseThrow(()-> new NoSuchDataException("Favorite coin null"));
-
-        return favoriteCoin.getCoinList().stream()
-                .filter(coin -> coin.getCoinMarketList()
-                        .removeIf(coinMarket -> !coinMarket.getDesignation().getName().equals(currency)))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Coin> persistGeskoInfo(List<GeskoCoinMarketDto> geskoCoinMarketDtoList, String currency) {
+    public List<CoinMarket> persistGeskoInfo(List<GeskoCoinMarketDto> geskoCoinMarketDtoList, String currency) {
         return geskoCoinMarketDtoList.stream().map(geskoCoinMarketDto -> {
             CoinMarket coinMarket = coinMarketMapper.toModal(
                     geskoMapper.toBaseDto(geskoCoinMarketDto)
@@ -101,19 +57,9 @@ public class CoinServiceImpl implements CoinService {
                 coinMarket.setDesignation(designationRepository.findById(currency).get());
                 coinMarket.setCoin(coinRepository.findById(geskoCoinMarketDto.getId()).get());
             }
-            coinMarket = coinMarketRepository.save(coinMarket);
 
-            Coin coin = coinRepository.findById(coinMarket.getCoin().getId()).get();
-            coin.getCoinMarketList().removeIf(coinMarketObj -> !coinMarketObj.getDesignation().getName().equals(currency));
-            return coin;
+            return coinMarketRepository.save(coinMarket);
 
         }).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<String> getDesignationNames() {
-        return designationRepository.findAll().stream()
-                .map(Designation::getName)
-                .collect(Collectors.toList());
     }
 }
