@@ -4,8 +4,10 @@ import com.cryptocurrency.entity.domain.User;
 import com.cryptocurrency.exception.IncorrectDataException;
 import com.cryptocurrency.service.google.drive.FileManager;
 import com.cryptocurrency.service.user.UserService;
+import com.cryptocurrency.util.AuthenticationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,11 +25,11 @@ public class ImageController {
     @Autowired
     private FileManager fileManager;
 
-    @PostMapping("/uploadFile/{username}")
+    @PostMapping("/uploadFile")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody String uploadFile(@RequestParam(name = "file", required = false) MultipartFile file,
-                                           @PathVariable("username") String username) {
-        User user = userService.find(username)
+                                    Authentication authentication) {
+        User user = userService.find(AuthenticationUtil.getUsernameFromAuthentication(authentication))
                 .orElseThrow(() -> new IncorrectDataException("User not found"));
 
         return userService.editProfileImage(

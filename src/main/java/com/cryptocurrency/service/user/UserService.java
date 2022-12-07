@@ -1,7 +1,9 @@
 package com.cryptocurrency.service.user;
 
 import com.cryptocurrency.entity.domain.Authority;
+import com.cryptocurrency.entity.domain.Profile;
 import com.cryptocurrency.entity.domain.User;
+import com.cryptocurrency.entity.dto.ProfileDto;
 import com.cryptocurrency.entity.enums.Role;
 
 import java.util.List;
@@ -18,6 +20,10 @@ public interface UserService {
     User addUserRole(User user, Role role);
     User removeUserRole(User user, Role role);
     boolean registerUser(User user, String pass, String name, Role role, String email);
+
+    Profile findProfileByUser(User user);
+    Profile editProfileData(User user, ProfileDto profileDto);
+    String editProfileImage(String imageId, User user);
 
     Optional<User> find(String username);
     List<User> findByRole(Role role);

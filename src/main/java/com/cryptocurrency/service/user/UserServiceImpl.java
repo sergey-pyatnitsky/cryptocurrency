@@ -3,6 +3,7 @@ package com.cryptocurrency.service.user;
 import com.cryptocurrency.entity.domain.Authority;
 import com.cryptocurrency.entity.domain.Profile;
 import com.cryptocurrency.entity.domain.User;
+import com.cryptocurrency.entity.dto.ProfileDto;
 import com.cryptocurrency.entity.enums.Role;
 import com.cryptocurrency.repository.AuthorityRepository;
 import com.cryptocurrency.repository.ProfileRepository;
@@ -121,6 +122,29 @@ public class UserServiceImpl implements UserService {
             profileRepository.save(profile);
             return true;
         } else return false;
+    }
+
+    @Override
+    public Profile findProfileByUser(User user) {
+        return profileRepository.findByUser(user);
+    }
+
+    @Override
+    public Profile editProfileData(User user, ProfileDto profileDto) {
+        Profile profile = profileRepository.findByUser(user);
+        profile.setAddress(profileDto.getAddress());
+        profile.setName(profileDto.getName());
+        profile.setCountry(profileDto.getCountry());
+        profile.setEmail(profileDto.getEmail());
+        profile.setPhone(profileDto.getPhone());
+        return profileRepository.save(profile);
+    }
+
+    @Override
+    public String editProfileImage(String imageId, User user) {
+        Profile profile = profileRepository.findByUser(user);
+        profile.setImageId(imageId);
+        return profileRepository.save(profile).getImageId();
     }
 
     @Override
