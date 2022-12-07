@@ -48,6 +48,9 @@ dependencies {
     //Google API
     implementation 'com.google.api-client:google-api-client:2.0.1'
     implementation 'com.google.apis:google-api-services-drive:v3-rev20221023-2.0.0'
+
+    //Mail sender
+    implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.3'
 }
 
 liquibase {

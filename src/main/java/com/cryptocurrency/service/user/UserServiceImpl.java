@@ -8,6 +8,7 @@ import com.cryptocurrency.entity.enums.Role;
 import com.cryptocurrency.repository.AuthorityRepository;
 import com.cryptocurrency.repository.ProfileRepository;
 import com.cryptocurrency.repository.UserRepository;
+import com.cryptocurrency.service.email.EmailService;
 import com.cryptocurrency.util.ValidationUtil;
 import com.cryptocurrency.validation.RegexpValidator;
 import com.cryptocurrency.validation.UserValidator;
@@ -41,6 +42,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private RegexpValidator regexpValidator;
+
+    @Autowired
+    private EmailService emailService;
 
     @Override
     public Set<Authority> getAuthoritiesByUsername(String username) {
@@ -120,6 +124,9 @@ public class UserServiceImpl implements UserService {
             user.setActive(true);
             Profile profile = Profile.builder().name(name).user(user).email(email).build();
             profileRepository.save(profile);
+            emailService.sendSimpleEmail(email,
+                    "Welcome to the personnel accounting system",
+                    "You have successfully registered in the cryptocurrency system.");
             return true;
         } else return false;
     }
