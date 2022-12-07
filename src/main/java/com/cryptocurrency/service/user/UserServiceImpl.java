@@ -153,7 +153,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findByRole(Role role) {
+    public List<Profile> findAllProfile() {
+        return profileRepository.findAll();
+    }
+
+    @Override
+    public List<Profile> findAllProfileByActiveStatus(boolean isActive) {
+        return profileRepository.findProfilesByUser_Active(isActive);
+    }
+
+    @Override
+    public List<Profile> findByRole(Role role) {
         Authority authority = authorityRepository.findByName(role.name()).orElse(null);
         if (authority == null) return null;
 
@@ -166,7 +176,15 @@ public class UserServiceImpl implements UserService {
                     .filter(user -> !user.getRoles().contains(authorityRepository.findByName(roleLoop.name()).orElse(null)))
                     .collect(Collectors.toList());
         }
-        return users;
+
+        return users.stream().map(
+                user -> profileRepository.findByUser(user)
+        ).collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean changeActiveStatus(User user, boolean isActive) {
+        return userRepository.changeActiveStatus(user.getUsername(), isActive) == 1;
     }
 
     @Override

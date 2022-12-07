@@ -26,7 +26,11 @@ public interface UserService {
     String editProfileImage(String imageId, User user);
 
     Optional<User> find(String username);
-    List<User> findByRole(Role role);
+    List<Profile> findAllProfile();
+    List<Profile> findAllProfileByActiveStatus(boolean isActive);
+    List<Profile> findByRole(Role role);
+
+    boolean changeActiveStatus(User user, boolean isActive);
 
     boolean inactivate(User user);
     boolean activate(User user);
