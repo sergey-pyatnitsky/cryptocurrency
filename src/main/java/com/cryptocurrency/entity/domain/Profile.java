@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -42,4 +43,12 @@ public class Profile {
 
     @Column(name = "image_id", length = 45)
     private String imageId;
+
+    @ManyToMany
+    @JoinTable(
+            name = "favorite_coin_list",
+            joinColumns = { @JoinColumn(name = "coin_id") },
+            inverseJoinColumns = { @JoinColumn(name = "favorite_id") }
+    )
+    private List<FavoriteCoin> favoriteCoinList;
 }

@@ -25,8 +25,8 @@ public class PortfolioCoin {
     @JoinColumn(name = "designation_name", nullable = false)
     private Designation designation;
 
-    @OneToOne
-    @JoinColumn(name = "portfolio", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "portfolio_id", nullable = false)
     private Portfolio portfolio;
 
     @ManyToOne
@@ -34,5 +34,7 @@ public class PortfolioCoin {
     private Coin coin;
 
     @Column(name = "buy_price")
-    private Long buyPrice;
+    private double buyPrice;
+
+    private double quantity;
 }

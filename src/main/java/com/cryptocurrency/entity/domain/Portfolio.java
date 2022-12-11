@@ -22,10 +22,14 @@ public class Portfolio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "coin")
+    @ManyToOne
+    @JoinColumn(name = "username")
+    private User user;
+
+    @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
     private List<PortfolioCoin> portfolioCoins;
 
 }
