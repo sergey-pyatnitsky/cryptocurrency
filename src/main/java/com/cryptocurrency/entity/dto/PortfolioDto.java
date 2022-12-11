@@ -10,5 +10,6 @@ import java.util.List;
 public class PortfolioDto {
     private final Long id;
     private final String name;
+    private final UserDto userDto;
     private final List<PortfolioCoinDto> portfolioCoins;
 }

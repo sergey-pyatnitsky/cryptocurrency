@@ -9,5 +9,6 @@ public class PortfolioCoinDto {
     private final Long id;
     private final CoinDto coin;
     private final DesignationDto designation;
-    private final Long buyPrice;
+    private final double buyPrice;
+    private final double quantity;
 }

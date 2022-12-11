@@ -7,7 +7,7 @@ import lombok.Data;
 @Builder
 public class CoinMarketDto {
     private final Long id;
-    private CoinDto coin;
+//    private CoinDto coin;
     private DesignationDto designation;
     private final double currentPrice;
     private final double marketCap;
