@@ -51,6 +51,9 @@ dependencies {
 
     //Mail sender
     implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.3'
+
+    //Math
+    implementation 'org.apache.commons:commons-math3:3.6.1'
 }
 
 liquibase {
