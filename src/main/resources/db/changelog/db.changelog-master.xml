@@ -19,4 +19,5 @@
     <include relativeToChangelogFile="true" file="./changeset/insert/insert_relation_into_user_authorities_table.xml"/>
     <include relativeToChangelogFile="true" file="./changeset/insert/insert_coins_table.xml"/>
     <include relativeToChangelogFile="true" file="./changeset/insert/insert_designation_table.xml"/>
+    <include relativeToChangelogFile="true" file="./changeset/insert/insert_profile_table.xml"/>
 </databaseChangeLog>
