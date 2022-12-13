@@ -14,6 +14,7 @@ public interface UserService {
     Set<Authority> getAuthoritiesByUsername(String username);
 
     User changeAuthData(User user, String password);
+    User changeUserRole(User user, Role role);
     Role getMaxRole(User user);
     Set<Authority> setAllRoles(Role role);
     Role getMaxRole(Set<Authority> roles);

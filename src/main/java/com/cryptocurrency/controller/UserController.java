@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -28,10 +29,10 @@ public class UserController {
     @Autowired
     private ProfileMapper profileMapper;
 
-    @PostMapping("/profile/edit_password")
+    @PostMapping("/profile/edit_password/{username}")
     @ResponseStatus(HttpStatus.OK)
-    public void editUserPass(@RequestBody UserDto userDto, Authentication authentication) {
-        User user = userService.find(AuthenticationUtil.getUsernameFromAuthentication(authentication))
+    public void editUserPass(@RequestBody UserDto userDto, @PathVariable String username) {
+        User user = userService.find(username)
                 .orElseThrow(() -> new IncorrectDataException("User not found"));
 
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -39,6 +40,14 @@ public class UserController {
             throw new IncorrectDataException("old password doesnt equals");
 
         userService.changeAuthData(user, userDto.getPassword());
+    }
+
+    @GetMapping("/profile/{username}")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody ProfileDto getProfileDataByUsername(@PathVariable String username) {
+        User user = userService.find(username)
+                .orElseThrow(() -> new IncorrectDataException("User not found"));
+        return profileMapper.toDto(userService.findProfileByUser(user));
     }
 
     @GetMapping("/profile/get_profile_data")
@@ -49,10 +58,10 @@ public class UserController {
         return profileMapper.toDto(userService.findProfileByUser(user));
     }
 
-    @PostMapping("/profile/edit")
+    @PostMapping("/profile/edit/{username}")
     @ResponseStatus(HttpStatus.OK)
-    public void editProfileData(@RequestBody ProfileDto profileDto, Authentication authentication) {
-        User user = userService.find(AuthenticationUtil.getUsernameFromAuthentication(authentication))
+    public void editProfileData(@RequestBody ProfileDto profileDto, @PathVariable String username) {
+        User user = userService.find(username)
                 .orElseThrow(() -> new IncorrectDataException("User not found"));
 
         userService.editProfileData(user, profileDto);
@@ -76,6 +85,14 @@ public class UserController {
         return profileMapper.toDtoList(userService.findByRole(role));
     }
 
+    @PutMapping("/change_role/{username}/{role}")
+    @ResponseStatus(HttpStatus.OK)
+    public void changeUserRole(@PathVariable String username, @PathVariable Role role) {
+        User user = userService.find(username)
+                .orElseThrow(() -> new IncorrectDataException("User not found"));
+        userService.changeUserRole(user, role);
+    }
+
     @PutMapping("/activate/{username}/{isActive}")
     @ResponseStatus(HttpStatus.OK)
     public void changeUserActiveStatus(@PathVariable String username, @PathVariable boolean isActive) {
@@ -85,7 +102,7 @@ public class UserController {
             throw new OperationExecutionException("user activation change failed");
     }
 
-    @DeleteMapping("/api/employee/remove/{id}")
+    @DeleteMapping("/remove/{username}")
     @ResponseStatus(HttpStatus.OK)
     public void removeUser(@PathVariable String username) {
         User user = userService.find(username)

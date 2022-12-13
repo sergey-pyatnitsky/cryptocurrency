@@ -10,6 +10,7 @@ import java.util.List;
 @Repository
 public interface ProfileRepository extends JpaRepository<Profile, Long> {
 
-    Profile findByUser(User user);
-    List<Profile> findProfilesByUser_Active(boolean isActive);
+    Profile findProfileByUser(User user);
+    List<Profile> findProfilesByUser_isActive(boolean isActive);
+    int removeByUser(User user);
 }

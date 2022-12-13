@@ -63,6 +63,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User changeUserRole(User user, Role role) {
+        user.setRoles(this.setAllRoles(role));
+        return userRepository.save(user);
+    }
+
+    @Override
     public Role getMaxRole(User user) {
         user = userRepository.findById(user.getUsername()).orElse(null);
         if (user == null) return null;
@@ -133,12 +139,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Profile findProfileByUser(User user) {
-        return profileRepository.findByUser(user);
+        return profileRepository.findProfileByUser(user);
     }
 
     @Override
     public Profile editProfileData(User user, ProfileDto profileDto) {
-        Profile profile = profileRepository.findByUser(user);
+        Profile profile = profileRepository.findProfileByUser(user);
         profile.setAddress(profileDto.getAddress());
         profile.setName(profileDto.getName());
         profile.setCountry(profileDto.getCountry());
@@ -149,7 +155,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String editProfileImage(String imageId, User user) {
-        Profile profile = profileRepository.findByUser(user);
+        Profile profile = profileRepository.findProfileByUser(user);
         profile.setImageId(imageId);
         return profileRepository.save(profile).getImageId();
     }
@@ -166,7 +172,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Profile> findAllProfileByActiveStatus(boolean isActive) {
-        return profileRepository.findProfilesByUser_Active(isActive);
+        return profileRepository.findProfilesByUser_isActive(isActive);
     }
 
     @Override
@@ -185,7 +191,7 @@ public class UserServiceImpl implements UserService {
         }
 
         return users.stream().map(
-                user -> profileRepository.findByUser(user)
+                user -> profileRepository.findProfileByUser(user)
         ).collect(Collectors.toList());
     }
 
@@ -246,9 +252,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean remove(User user) {
-        if (authorityRepository.removeByName(user.getUsername())) {
-            return userRepository.removeByUsername(user.getUsername());
-        }
+//        if (authorityRepository.removeByName(user.getUsername()) == 1) {
+        if(profileRepository.removeByUser(user) == 1)
+            return userRepository.removeByUsername(user.getUsername()) == 1;
+//        }
         return false;
     }
 }

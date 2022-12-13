@@ -41,7 +41,7 @@ public class Profile {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "image_id", length = 45)
+    @Column(name = "image_id", length = 45, columnDefinition = "1w-cdfICir8vpLXyRY4hW041f2JEG4z_5")
     private String imageId;
 
     @ManyToMany

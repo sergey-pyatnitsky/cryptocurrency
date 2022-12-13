@@ -15,7 +15,7 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     List<User> findUsersByRolesContains(Authority authority);
 
-    boolean removeByUsername(String username);
+    int removeByUsername(String username);
 
     @Modifying
     @Query("update User u set u.isActive =:isActive where u.username =:username")

@@ -9,7 +9,7 @@ import java.util.Optional;
 @Repository
 public interface AuthorityRepository extends JpaRepository<Authority, Long> {
 
-    boolean removeByName(String name);
+    int removeByName(String name);
 
     Optional<Authority> findByName(String name);
 }
