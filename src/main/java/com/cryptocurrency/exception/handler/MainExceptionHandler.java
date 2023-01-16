@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -38,8 +39,8 @@ public class MainExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ResponseBody
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    @ExceptionHandler({DisabledException.class, BadCredentialsException.class})
-    public ApiError handleAuthException(Exception e) {
+    @ExceptionHandler({DisabledException.class})
+    public ApiError handleUnauthorizedException(Exception e) {
         ApiError apiError = ApiError.ApiErrorBuilder.anApiError()
                 .withTimestamp(new Date(System.currentTimeMillis()))
                 .withStatus(HttpStatus.UNAUTHORIZED.value())
@@ -48,6 +49,29 @@ public class MainExceptionHandler extends ResponseEntityExceptionHandler {
         return apiError;
     }
 
+    @ResponseBody
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler({BadCredentialsException.class})
+    public ApiError handleForbiddenException(Exception e) {
+        ApiError apiError = ApiError.ApiErrorBuilder.anApiError()
+                .withTimestamp(new Date(System.currentTimeMillis()))
+                .withStatus(HttpStatus.FORBIDDEN.value())
+                .withError(e.getMessage()).build();
+        logger.error(e.getMessage());
+        return apiError;
+    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler({UsernameNotFoundException.class })
+    public ApiError handleNotFoundException(Exception e) {
+        ApiError apiError = ApiError.ApiErrorBuilder.anApiError()
+                .withTimestamp(new Date(System.currentTimeMillis()))
+                .withStatus(HttpStatus.NOT_FOUND.value())
+                .withError(e.getMessage()).build();
+        logger.error(e.getMessage());
+        return apiError;
+    }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException e,
