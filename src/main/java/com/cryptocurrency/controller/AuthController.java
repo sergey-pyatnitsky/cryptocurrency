@@ -4,9 +4,9 @@ import com.cryptocurrency.configuration.jwt.JwtTokenUtil;
 import com.cryptocurrency.entity.domain.Profile;
 import com.cryptocurrency.entity.domain.User;
 import com.cryptocurrency.entity.enums.Role;
-import com.cryptocurrency.exception.IncorrectDataException;
 import com.cryptocurrency.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -20,6 +20,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Locale;
 import java.util.Objects;
 
 @CrossOrigin
@@ -52,11 +53,12 @@ public class AuthController {
 
     @PostMapping("/registration")
     @ResponseStatus(HttpStatus.OK)
-    public void registerEmployee(@RequestBody Profile profile) {
+    public void registerEmployee(@RequestBody Profile profile, @RequestParam("locale") String locale) {
+        LocaleContextHolder.setLocale(Locale.forLanguageTag(locale));
         if (!userService.registerUser(profile.getUser(),
                 profile.getUser().getPassword(),
                 profile.getName(), Role.ADMIN, profile.getEmail()))
-            throw new IncorrectDataException("Ошибка регистрации");
+            throw new BadCredentialsException("Registration error");
     }
 
     private Authentication authenticate(String username,
