@@ -42,6 +42,11 @@ public class CoinController {
         );
     }
 
+    @GetMapping("/public/coin/getTrendingCoins/{currency}")
+    public List<CoinDto> getTrendingCoins(@PathVariable("currency") String currency) {
+        return coinMapper.toDtoList(coinService.findTrendingCoins(currency));
+    }
+
     @PostMapping("/coin/markovits/analysis/{currency}")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody MarkovitsDto getMarkovitsAnalysis(@RequestParam("coins") String[] coinsId,

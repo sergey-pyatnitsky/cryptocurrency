@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,6 +50,16 @@ public class CoinServiceImpl implements CoinService {
     @Override
     public List<String> findCoinsIdBySearch(String search) {
         return coinRepository.findCoinsIdBySearch(search);
+    }
+
+    @Override
+    public List<Coin> findTrendingCoins(String currency) {
+        List<Coin> coins = coinRepository.findAll();
+        coins.forEach(coin ->
+                coin.getCoinMarketList().removeIf(coinMarket -> !coinMarket.getDesignation().getName().equals(currency)));
+        coins = coins.stream().sorted(Comparator.comparingDouble(o -> o.getCoinMarketList().get(0).getMarketCap()))
+                .limit(7).collect(Collectors.toList());
+        return coins;
     }
 
     @Override
