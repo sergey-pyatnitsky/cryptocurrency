@@ -56,6 +56,9 @@ public class CoinMarket {
     @Column(name = "total_supply")
     private double totalSupply;
 
+    @Column(name = "max_supply")
+    private double maxSupply;
+
     @Column(name = "last_updated")
     private String lastUpdated;
 }

@@ -18,5 +18,6 @@ public class CoinMarketDto {
     private final double marketCapChangePercentage24h;
     private final double circulatingSupply;
     private final double totalSupply;
+    private final double maxSupply;
     private final String lastUpdated;
 }

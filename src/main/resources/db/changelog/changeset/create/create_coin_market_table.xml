@@ -23,6 +23,7 @@
             <column name="market_cap_change_percentage_24h" type="DOUBLE PRECISION" />
             <column name="circulating_supply" type="DOUBLE PRECISION" />
             <column name="total_supply" type="DOUBLE PRECISION" />
+            <column name="max_supply" type="DOUBLE PRECISION" />
             <column name="last_updated" type="varchar(255)" />
         </createTable>
     </changeSet>

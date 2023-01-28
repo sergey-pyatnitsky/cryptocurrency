@@ -27,6 +27,8 @@ public class GeskoCoinMarketDto {
     private double circulatingSupply;
     @JsonProperty("total_supply")
     private double totalSupply;
+    @JsonProperty("max_supply")
+    private double maxSupply;
     @JsonProperty("last_updated")
     private String lastUpdated;
 }
