@@ -63,6 +63,14 @@ public class CoinServiceImpl implements CoinService {
     }
 
     @Override
+    public Coin findCoin(String id, String currency) {
+        Coin coin = coinRepository.findById(id)
+                .orElseThrow(() -> new IncorrectDataException("Coin not found"));
+        coin.getCoinMarketList().removeIf(coinMarket -> !coinMarket.getDesignation().getName().equals(currency));
+        return coin;
+    }
+
+    @Override
     public FavoriteCoin addFavoriteCoin(String coinId, String username) {
         User user = userRepository.findById(username)
                 .orElseThrow(() -> new IncorrectDataException("User not found"));

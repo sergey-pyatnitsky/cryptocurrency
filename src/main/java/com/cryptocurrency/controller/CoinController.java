@@ -42,6 +42,11 @@ public class CoinController {
         );
     }
 
+    @GetMapping("/public/coin/{id}/{currency}")
+    public CoinDto getSingleCoin(@PathVariable("id") String id, @PathVariable("currency") String currency) {
+        return coinMapper.toDto(coinService.findCoin(id, currency));
+    }
+
     @GetMapping("/public/coin/getTrendingCoins/{currency}")
     public List<CoinDto> getTrendingCoins(@PathVariable("currency") String currency) {
         return coinMapper.toDtoList(coinService.findTrendingCoins(currency));

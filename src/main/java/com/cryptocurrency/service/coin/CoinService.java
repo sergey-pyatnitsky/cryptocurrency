@@ -10,6 +10,7 @@ public interface CoinService {
 
     List<String> findCoinsId();
     List<String> findCoinsIdBySearch(String search);
+    Coin findCoin(String id, String currency);
     List<Coin> findTrendingCoins(String currency);
 
     FavoriteCoin addFavoriteCoin(String coinId, String username);
