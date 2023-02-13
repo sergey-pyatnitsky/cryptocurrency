@@ -1,11 +1,14 @@
 package com.cryptocurrency.controller;
 
 import com.cryptocurrency.entity.dto.CoinDto;
+import com.cryptocurrency.entity.dto.PriceAlertsDto;
+import com.cryptocurrency.entity.dto.UserCoinInfoDto;
 import com.cryptocurrency.entity.dto.gesko.GeskoCoinMarketDto;
 import com.cryptocurrency.entity.dto.gesko.OhlcDto;
 import com.cryptocurrency.entity.dto.markovits.MarkovitsDto;
 import com.cryptocurrency.entity.dto.markovits.PartsOfStock;
 import com.cryptocurrency.mapper.CoinMapper;
+import com.cryptocurrency.mapper.PriceAlertsMapper;
 import com.cryptocurrency.service.coin.CoinService;
 import com.cryptocurrency.service.markovits.MarkovitsaServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,9 @@ public class CoinController {
 
     @Autowired
     private CoinMapper coinMapper;
+
+    @Autowired
+    private PriceAlertsMapper priceAlertsMapper;
 
     @Autowired
     private MarkovitsaServiceImpl markovitsaService;
@@ -78,6 +84,38 @@ public class CoinController {
     public @ResponseBody List<CoinDto> getFavoriteCoinByUsernameAndCurrency(
             @RequestParam("username") String username, @RequestParam("currency") String currency) {
         return coinMapper.toDtoList(coinService.getFavoriteCoinsList(username, currency));
+    }
+
+    @GetMapping("/coin/price_alerts/all")
+    @ResponseStatus(HttpStatus.OK)
+    public PriceAlertsDto findPriceAlertByUsername(@RequestParam("username") String username) {
+        return priceAlertsMapper.toDto(coinService.findByUsername(username));
+    }
+
+    @PostMapping("/coin/price_alerts/add")
+    @ResponseStatus(HttpStatus.OK)
+    public void addPriceAlert(@RequestParam("coin_id") String coinId, @RequestParam("price") Double price,
+                              @RequestParam("username") String username, @RequestParam("currency") String currency) {
+        coinService.addPriceAlert(coinId, price, username, currency);
+    }
+
+    @PostMapping("/coin/price_alerts/edit")
+    @ResponseStatus(HttpStatus.OK)
+    public void editPriceAlert(@RequestParam("coin_id") String coinId, @RequestParam("price") Double price,
+                              @RequestParam("username") String username) {
+        coinService.editPriceAlert(coinId, price, username);
+    }
+
+    @DeleteMapping("/coin/price_alerts/remove")
+    @ResponseStatus(HttpStatus.OK)
+    public void removePriceAlert(@RequestParam("coin_id") String coinId, @RequestParam("username") String username) {
+        coinService.removePriceAlert(coinId, username);
+    }
+
+    @GetMapping("/coin/user_coin_info")
+    @ResponseStatus(HttpStatus.OK)
+    public UserCoinInfoDto getUserCoinInfo(@RequestParam("coin_id") String coinId, @RequestParam("username") String username) {
+        return coinService.getUserCoinInfo(coinId, username);
     }
 
     private List<OhlcDto> getResponseToOhlcObject(String url) {
