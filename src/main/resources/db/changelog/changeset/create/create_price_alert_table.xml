@@ -1,0 +1,27 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="Pyatnitsky" id="create_price_alert_table">
+        <createTable tableName="price_alerts">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="username" type="varchar(50)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="FK_PRICEALERTS_ON_USERNAME"
+                             foreignKeyName="username" references="&quot;user&quot;(username)"/>
+            </column>
+        </createTable>
+        <createTable tableName="alert_list">
+            <column name="alert_id" type="BIGINT">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="fk_alelis_on_alert"
+                             foreignKeyName="alert_id" references="alert(id)"/>
+            </column>
+            <column name="price_alert_id" type="BIGINT">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="fk_alelis_on_price_alerts"
+                             foreignKeyName="price_alert_id" references="price_alerts(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

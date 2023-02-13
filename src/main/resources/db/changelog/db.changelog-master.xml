@@ -13,6 +13,8 @@
     <include relativeToChangelogFile="true" file="./changeset/create/create_favorite_coins_table.xml"/>
     <include relativeToChangelogFile="true" file="./changeset/create/create_portfolio_table.xml"/>
     <include relativeToChangelogFile="true" file="./changeset/create/create_portfolio_coin_table.xml"/>
+    <include relativeToChangelogFile="true" file="./changeset/create/create_alert_table.xml"/>
+    <include relativeToChangelogFile="true" file="./changeset/create/create_price_alert_table.xml"/>
 
     <include relativeToChangelogFile="true" file="./changeset/insert/insert_roles_into_authority_table.xml"/>
     <include relativeToChangelogFile="true" file="./changeset/insert/insert_users_table.xml"/>

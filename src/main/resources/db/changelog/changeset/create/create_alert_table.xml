@@ -1,0 +1,21 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet  author="Pyatnitsky"  id="create_alert_table">
+        <createTable tableName="alert">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="price" type="DOUBLE PRECISION" />
+            <column name="coin_id" type="VARCHAR(255)">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="FK_ALERT_ON_COIN"
+                             foreignKeyName="coin_id" references="coin(id)"/>
+            </column>
+            <column name="designation" type="varchar(10)">
+                <constraints nullable="false" foreignKeyName="FK_ALERT_ON_DESIGNATION" references="designation(name)"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
