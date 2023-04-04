@@ -41,7 +41,6 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
     annotationProcessor 'org.projectlombok:lombok'
 
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
 
@@ -54,6 +53,13 @@ dependencies {
 
     //Math
     implementation 'org.apache.commons:commons-math3:3.6.1'
+    implementation 'org.ojalgo:ojalgo:50.0.2'
+
+
+
+
+
+
 }
 
 liquibase {
