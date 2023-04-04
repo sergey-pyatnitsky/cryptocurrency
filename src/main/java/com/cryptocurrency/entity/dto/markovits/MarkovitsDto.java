@@ -11,4 +11,5 @@ public class MarkovitsDto {
     private double[][] covarianceMatrix;
     private double totalRiskOfPortfolio;
     private double totalProfitabilityOfPortfolio;
+    private OptimizedPortfolio optimizedPortfolio;
 }
