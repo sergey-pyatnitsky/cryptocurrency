@@ -11,6 +11,7 @@ import com.cryptocurrency.service.user.UserService;
 import com.cryptocurrency.util.AuthenticationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,13 +32,14 @@ public class UserController {
 
     @PostMapping("/profile/edit_password/{username}")
     @ResponseStatus(HttpStatus.OK)
-    public void editUserPass(@RequestBody UserDto userDto, @PathVariable String username) {
+    public void editUserPass(@RequestBody UserDto userDto, @RequestParam("old_pass") String pass,
+                             @PathVariable String username) {
         User user = userService.find(username)
                 .orElseThrow(() -> new IncorrectDataException("User not found"));
 
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        if (!passwordEncoder.matches(userDto.getPassword(), user.getPassword().replace("{bcrypt}", "")))
-            throw new IncorrectDataException("old password doesnt equals");
+        if (!passwordEncoder.matches(pass, user.getPassword().replace("{bcrypt}", "")))
+            throw new BadCredentialsException("old password doesnt equals");
 
         userService.changeAuthData(user, userDto.getPassword());
     }
