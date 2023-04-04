@@ -28,6 +28,7 @@ public class Alert {
     private Double price;
 
     @OneToOne
-    @JoinColumn(name = "designation", referencedColumnName = "name")
+    @JoinColumn(name = "" +
+            "designation", referencedColumnName = "name")
     private Designation designation;
 }

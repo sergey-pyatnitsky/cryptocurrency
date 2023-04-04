@@ -79,6 +79,12 @@ public class CoinController {
         coinService.addFavoriteCoin(coinId, username);
     }
 
+    @DeleteMapping("/coin/favorite/remove")
+    @ResponseStatus(HttpStatus.OK)
+    public void removeFavoriteCoin(@RequestParam("coin_id") String coinId, @RequestParam("username") String username) {
+        coinService.removeFavoriteCoin(coinId, username);
+    }
+
     @GetMapping("/coin/favorite/all")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody List<CoinDto> getFavoriteCoinByUsernameAndCurrency(

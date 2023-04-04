@@ -5,6 +5,7 @@ import com.cryptocurrency.entity.dto.UserCoinInfoDto;
 import com.cryptocurrency.entity.dto.gesko.GeskoCoinMarketDto;
 import com.cryptocurrency.exception.IncorrectDataException;
 import com.cryptocurrency.exception.NoSuchDataException;
+import com.cryptocurrency.exception.OperationExecutionException;
 import com.cryptocurrency.mapper.CoinMarketMapper;
 import com.cryptocurrency.mapper.gesko.GeskoMapper;
 import com.cryptocurrency.repository.*;
@@ -101,6 +102,20 @@ public class CoinServiceImpl implements CoinService {
     }
 
     @Override
+    public boolean removeFavoriteCoin(String coinId, String username) {
+        User user = userRepository.findById(username)
+                .orElseThrow(() -> new IncorrectDataException("User not found"));
+
+        FavoriteCoin favoriteCoin = favoriteCoinRepository.findByUser(user)
+                .orElseThrow(() -> new NoSuchDataException("Favorite coin null"));
+
+        boolean isRemoved = favoriteCoin.getCoinList().removeIf(coin -> coin.getId().equals(coinId));
+        if(isRemoved) favoriteCoinRepository.save(favoriteCoin);
+        else throw new OperationExecutionException("Favorite Coin not removed");
+        return true;
+    }
+
+    @Override
     public List<Coin> getFavoriteCoinsList(String username, String currency) {
         User user = userRepository.findById(username)
                 .orElseThrow(() -> new IncorrectDataException("User not found"));
@@ -177,7 +192,10 @@ public class CoinServiceImpl implements CoinService {
         PriceAlerts priceAlerts = priceAlertsRepository.findByUser(user)
                 .orElseThrow(() -> new IncorrectDataException("PriceAlerts not found"));
 
-        return priceAlerts.getAlerts().removeIf(alert -> alert.getCoin().getId().equals(coin.getId()));
+        boolean isRemoved = priceAlerts.getAlerts().removeIf(alert -> alert.getCoin().getId().equals(coin.getId()));
+        if(isRemoved) priceAlertsRepository.save(priceAlerts);
+        else throw new OperationExecutionException("Price Alert not removed");
+        return true;
     }
 
     @Scheduled(fixedDelay = 600000, initialDelay = 100000)
