@@ -47,15 +47,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable().cors().and()
                 .authorizeRequests()
-                .antMatchers("/resources/**", "/public/**", "/login/**", "/oauth2/**", "/auth/**").permitAll()
+                .antMatchers("/resources/**", "/public/**", "/login/**", "/auth/**",
+                        "/profile/downloadFile/**").permitAll()
                 .anyRequest().authenticated().and()
                 .formLogin().disable().httpBasic().disable()
-                .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).and()
-                .oauth2Login()
-                .authorizationEndpoint()
-                .baseUri("/oauth2/authorization").and()
-                .defaultSuccessUrl("/page")
-                .failureUrl("/login?unauthorized");
+                .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }
