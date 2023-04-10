@@ -1,0 +1,34 @@
+version: "2.4"
+
+services:
+  db:
+    image: postgres:14.4
+    container_name: db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=cryptocurrency
+    ports:
+      - "5432:5432"
+  cryptocurrency:
+    build: .
+    container_name: cryptocurrency
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      DATASOURCE_PASSWORD: postgres
+      DATASOURCE_URL: jdbc:postgresql://db:5432/cryptocurrency
+      DATASOURCE_USERNAME: postgres
+  cryptocurrency-front:
+    image: neaktub/cryptocurrency-front:latest
+    container_name: cryptocurrency-front
+    ports:
+      - "3000:3000"
+    environment:
+      BACKEND_HOST: cryptocurrency
+      BACKEND_PORT: 8080
+    depends_on:
+      - cryptocurrency
