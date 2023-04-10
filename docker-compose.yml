@@ -10,6 +10,8 @@ services:
       - POSTGRES_DB=cryptocurrency
     ports:
       - "5432:5432"
+    networks:
+      - bridge-network
   cryptocurrency:
     build: .
     container_name: cryptocurrency
@@ -22,13 +24,20 @@ services:
       DATASOURCE_PASSWORD: postgres
       DATASOURCE_URL: jdbc:postgresql://db:5432/cryptocurrency
       DATASOURCE_USERNAME: postgres
+    networks:
+      - bridge-network
   cryptocurrency-front:
     image: neaktub/cryptocurrency-front:latest
     container_name: cryptocurrency-front
     ports:
       - "3000:3000"
     environment:
-      BACKEND_HOST: cryptocurrency
-      BACKEND_PORT: 8080
+      REACT_APP_BACKEND_HOST: localhost
+      REACT_APP_BACKEND_PORT: 8080
     depends_on:
       - cryptocurrency
+    networks:
+      - bridge-network
+networks:
+  bridge-network:
+    driver: bridge
