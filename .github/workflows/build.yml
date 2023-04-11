@@ -28,6 +28,8 @@ jobs:
       with:
         java-version: '1.8'
         cache: gradle
+    - name: Make gradlew executable
+      run: chmod +x ./gradlew
     - name: Build with Gradle
       run: ./gradlew build
   push_to_Docker_Hub:
