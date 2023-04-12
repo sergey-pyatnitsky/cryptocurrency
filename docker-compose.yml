@@ -13,9 +13,8 @@ services:
     networks:
       - bridge-network
   cryptocurrency:
-    build: .
+    image: neaktub/cryptocurrency:latest
     container_name: cryptocurrency
-    restart: always
     ports:
       - "8080:8080"
     depends_on:
