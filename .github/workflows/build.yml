@@ -31,6 +31,21 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
       - name: Build with Gradle
+        run: ./gradlew build
+  push_to_Docker_Hub:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Java JDK
+        uses: actions/setup-java@v1.4.4
+        with:
+          java-version: '1.8'
+          cache: gradle
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+      - name: Build with Gradle
         run: ./gradlew bootJar
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
